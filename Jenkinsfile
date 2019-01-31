@@ -1,15 +1,15 @@
-node 
+node
 {
-    stage('Build')    
+    stage('SCM checkout')
     {
-        echo "This is build phase"
+        git 'https://github.com/javahometech/my-app'
     }
-    stage('Testing')
+    stage('MVN package')
     {
-        echo "This is test phase"
+        sh 'mvn clean package'
     }
-    stage('Deploy')
+    stage('Build Docker image')
     {
-        echo "This is deployment phase"
+        sh 'docker build -t santhosh.thoddin/my-app:2.0.0 .'
     }
 }
